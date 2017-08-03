@@ -3,9 +3,22 @@ from collections import namedtuple
 Entry = namedtuple('Entry', ['name', 'numbers'])
 
 
-def prompt_for_number(prompttext):
-    # TODO: Define prmpting for actual number
-    pass
+def is_number(value):
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+
+
+def prompt_for_number(prompttext, minval, maxval):
+    while True:
+        answertext = input(prompttext)
+        if is_number(answertext) and minval <= int(answertext) <= maxval:
+            break
+        print('Please enter a number within {} and {}.'.format(minval, maxval))
+
+    return int(answertext)
 
 
 def prompt_for_favorite(person, numbers=None):
