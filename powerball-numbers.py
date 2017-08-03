@@ -21,9 +21,32 @@ def prompt_for_number(prompttext, minval, maxval):
     return int(answertext)
 
 
-def prompt_for_favorite(person, numbers=None):
+def prompt_for_favorite(numbers):
     # TODO: Define loop to prompt for number, check against type, range, and existing.
-    pass
+    minval = 1
+    maxval = 69
+
+    indexes = {0: '1st', 1: '2nd', 2: '3rd', 3: '4th', 4: '5th', 5: '6th'}
+    index = indexes[len(numbers)]
+
+    excludingtext = ''
+    if len(numbers) == 1:
+        excludingtext = ' excluding {}'.format(numbers[0])
+    elif len(numbers) == 2:
+        excludingtext = ' excluding {} and {}'.format(numbers[0], numbers[-1])
+    elif len(numbers) > 2:
+        excludingtext = ' excluding {}, and {}'.format(', '.join(map(str, numbers[:-1])), numbers[-1])
+
+    prompt = 'select {} # ({} thru {}{}): '.format(index, minval, maxval, excludingtext)
+
+    while True:
+        num = prompt_for_number(prompt, minval, maxval)
+        if num in numbers:
+            print('{} has already been picked.'.format(num))
+        else:
+            break
+
+    numbers.append(num)
 
 
 def prompt_for_powerball(person, numbers):
