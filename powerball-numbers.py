@@ -61,11 +61,34 @@ def create_ticket(entries):
     pass
 
 
+def non_empty_prompt(prompt):
+    while True:
+        val = input(prompt).strip()
+        if val:
+            break
+        print('Empty input is not allowed.')
+
+    return val
+
+
 def new_entry():
     # TODO: Prompt for name, numbers
-    pass
+    firstname = non_empty_prompt('Please enter your first name: ')
+    lastname = non_empty_prompt('Please enter your last name: ')
+    name = '{} {}'.format(firstname, lastname)
+
+    numbers = []
+    # Prompt for 5 numbers
+    for i in range(5):
+        prompt_for_favorite(numbers)
+
+    powerball = prompt_for_powerball()
+    numbers.append(powerball)
+
+    return Entry(name=name, numbers=numbers)
 
 
 if __name__ == '__main__':
     # TODO: Define main loop
+    print(new_entry())
     pass
