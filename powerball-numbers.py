@@ -49,9 +49,11 @@ def prompt_for_favorite(numbers):
     numbers.append(num)
 
 
-def prompt_for_powerball(person, numbers):
-    # TODO: Define loop to prompt for number, check against type and range.
-    pass
+def prompt_for_powerball():
+    minval = 1
+    maxval = 26
+    prompt = 'select Power Ball # ({} thru {}): '.format(minval, maxval)
+    return prompt_for_number(prompt, minval, maxval)
 
 
 def create_ticket(entries):
