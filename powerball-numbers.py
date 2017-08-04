@@ -1,4 +1,5 @@
-from collections import namedtuple
+from collections import Counter, namedtuple
+import random
 
 Entry = namedtuple('Entry', ['name', 'numbers'])
 
@@ -58,7 +59,23 @@ def prompt_for_powerball():
 
 def create_ticket(entries):
     # TODO: Loop entries
-    pass
+    powerball_ticket = []
+
+    for i in range(6):
+        # Generate counts, excluding any that are already picked if first five numbers.
+        if i < 5:
+            counts = Counter([entry.numbers[i] for entry in entries if entry.numbers[i] not in powerball_ticket])
+        else:
+            counts = Counter([entry.numbers[i] for entry in entries])
+        # Count of most common occurrence, most_common returns list of (val, count) tuples up to parameter given (1).
+        max_count = counts.most_common(1)[0][1]
+        # Get most common values as candidates for ticket
+        candidates = [x[0] for x in counts.most_common() if x[1] == max_count]
+
+        # Pick random from candidates. If only 1 candidate, that will be returned.
+        powerball_ticket.append(random.choice(candidates))
+
+    return powerball_ticket
 
 
 def non_empty_prompt(prompt):
@@ -90,5 +107,4 @@ def new_entry():
 
 if __name__ == '__main__':
     # TODO: Define main loop
-    print(new_entry())
     pass
